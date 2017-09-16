@@ -43,7 +43,7 @@ The calculator must support three products with the following rules:
 
 ## Example
 Here is sample data for a given race. This is what your program will receive on stdin :
-Bet:W:1:3
+Bet:W:1:3 \n
 Bet:W:2:4
 Bet:W:3:5
 Bet:W:4:5
