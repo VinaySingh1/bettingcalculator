@@ -43,6 +43,8 @@ The calculator must support three products with the following rules:
 
 ## Example
 Here is sample data for a given race. This is what your program will receive on stdin :
+
+```js
 	Bet:W:1:3
 	Bet:W:2:4
 	Bet:W:3:5
@@ -80,10 +82,14 @@ Here is sample data for a given race. This is what your program will receive on 
 	Bet:E:1,3:93
 	Bet:E:3,2:51
 	Result:2:3:1
+```
 
 And this is what it should output on stdout :
+
+```js
 	Win:2:$2.61
 	Place:2:$1.06
 	Place:3:$1.27
 	Place:1:$2.13
 	Exacta:2,3:$2.43
+```
