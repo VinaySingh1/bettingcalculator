@@ -9,9 +9,9 @@ a program to calculate the dividends for a simplified form of Tote betting .
 4. Define commission value in .env environment file
 3. Start the server: `npm start`
 5. Then start entering betting input of format `Bet:<product>:<selections>:<stake>` where
-	- <product> is one of W , P,E
-	- <selection> is either a single runner number (e.g.4 ) for Win and Place, or two runner numbers (e.g.4,3 ) for Exacta and Quinella
-	- <stake> is an amount in whole dollars (e.g.35 )For example:
+	- `<product>` is one of W , P,E
+	- `<selection>` is either a single runner number (e.g.4 ) for Win and Place, or two runner numbers (e.g.4,3 ) for Exacta and Quinella
+	- `<stake>` is an amount in whole dollars (e.g.35 )For example:
 	Bet:W:3:5 is a $5 bet on horse 3 to win 
 	Bet:P:2:10 is a $10 bet on horse 2 to come first, second or third 
 	Bet:E:5,7:15 is a $15 bet on horses 5 and 7 to come first and second in that order
