@@ -2,31 +2,40 @@
 var _ = require('lodash');
 
 
-module.exports.winbet = function(windata,totalPoolValue ,result){
-	var totalWinTicket=0, windividend=0, resultArr = [];
+module.exports.winbet = function(windata,result){
+	var totalWinTicket=0,totalPoolValue=0, windividend=0, resultArr = [];
 	resultArr = _.split(result,':');
 	_.forEach(windata,function(value,key){
 		var windataArr= [];
-		windataArr = _.split(value,':');		
+		windataArr = _.split(value,':');
+		totalPoolValue=totalPoolValue+_.parseInt(windataArr[3]);		
 		if(windataArr[2] === resultArr[1]){
 			totalWinTicket=totalWinTicket+_.parseInt(windataArr[3]);
 		}
 
 	});
-	windividend =  (totalPoolValue*process.env.WIN_COMMISSION)/100;
-	windividend = totalPoolValue - windividend;
-	windividend = (totalWinTicket >0 ? (windividend/totalWinTicket): 0 );
-	return "Win : "+resultArr[1]+' : '+'$'+_.round((windividend), 2).toFixed(2);
+	if(totalWinTicket>0)
+	{
+		windividend =  (totalPoolValue*process.env.WIN_COMMISSION)/100;
+		windividend = totalPoolValue - windividend;
+		windividend = (totalWinTicket >0 ? (windividend/totalWinTicket): 0 );
+		return "Win : "+resultArr[1]+' : '+'$'+_.round((windividend), 2).toFixed(2);
+	}else
+	{
+		return "No Win bet won";
+	}
+	
 
 }
 
-module.exports.placebet = function(placedata,totalPoolValue ,result){
+module.exports.placebet = function(placedata,result){
 	//console.log("--placebet calculation-----");
-	var totalPlaceTicket=0, placedividend=0, resultArr = [], placeresult=[];
+	var totalPlaceTicket=0,totalPoolValue=0, placedividend=0, resultArr = [], placeresult=[];
 	resultArr = _.split(result,':');
 	_.forEach(placedata,function(value,key){
 		var placedataArr= [];
 		placedataArr = _.split(value,':');
+		totalPoolValue=totalPoolValue+_.parseInt(placedataArr[3]);
 		if(_.indexOf(resultArr, placedataArr[2]) >0)
 		{
 			if(typeof placeresult[placedataArr[2]] !=='undefined')
@@ -59,16 +68,20 @@ module.exports.placebet = function(placedata,totalPoolValue ,result){
 
 		});
 	}
+	else{
+		placeBetting ="No place bet won";	
+	}
 	return placeBetting;
 }
 
-module.exports.exactabet = function(exactadata,totalPoolValue, result){
-	var totalexactTicket=0, exactadividend=0, resultArr = [], exactaresult=[];
+module.exports.exactabet = function(exactadata,result){
+	var totalexactTicket=0, exactadividend=0,totalPoolValue=0, resultArr = [], exactaresult=[];
 	resultArr = _.split(result,':');
 	var compareVaule = resultArr[1]+','+resultArr[2];
 	_.forEach(exactadata,function(value,key){
 		var exactadataArr= [];
-		exactadataArr = _.split(value,':');		
+		exactadataArr = _.split(value,':');	
+		totalPoolValue=totalPoolValue+_.parseInt(exactadataArr[3]);	
 		if(exactadataArr[2] === compareVaule)
 		{
 			totalexactTicket= totalexactTicket + _.parseInt(exactadataArr[3]);			
@@ -83,6 +96,10 @@ module.exports.exactabet = function(exactadata,totalPoolValue, result){
 		exactadividend = (totalexactTicket >0 ? (exactadividend/totalexactTicket): 0 );
 
 		exactearetting+=  "Exacta : "+compareVaule+' : '+'$'+_.round((exactadividend), 2).toFixed(2);	
+	}
+	else
+	{
+		exactearetting="No Exacta bet won";
 	}
 	return exactearetting;
 }
